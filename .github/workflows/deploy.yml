@@ -5,16 +5,14 @@ on:
     branches: ["main"]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,38 +34,20 @@ jobs:
           echo "=== Contents of dist directory ==="
           ls -la dist/
           echo ""
-          echo "=== File count ==="
-          find dist -type f | wc -l
-          echo ""
           echo "=== All files in dist ==="
           find dist -type f
           echo ""
           echo "=== Checking index.js ==="
           if [ -f dist/index.js ]; then
-            echo "✓ index.js found"
-            ls -lh dist/index.js
-            echo "First 100 chars:"
-            head -c 100 dist/index.js
+            echo "✓ index.js found ($(stat -f%z dist/index.js 2>/dev/null || stat -c%s dist/index.js) bytes)"
           else
             echo "✗ index.js NOT found"
             exit 1
           fi
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true

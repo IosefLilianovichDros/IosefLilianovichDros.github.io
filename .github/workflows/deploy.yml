@@ -33,15 +33,24 @@ jobs:
 
       - name: List dist contents
         run: |
-          echo "Contents of dist directory:"
+          echo "=== Contents of dist directory ==="
           ls -la dist/
           echo ""
-          echo "Checking if index.js exists:"
+          echo "=== File count ==="
+          find dist -type f | wc -l
+          echo ""
+          echo "=== All files in dist ==="
+          find dist -type f
+          echo ""
+          echo "=== Checking index.js ==="
           if [ -f dist/index.js ]; then
             echo "✓ index.js found"
             ls -lh dist/index.js
+            echo "First 100 chars:"
+            head -c 100 dist/index.js
           else
             echo "✗ index.js NOT found"
+            exit 1
           fi
 
       - name: Setup Pages

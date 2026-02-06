@@ -15,30 +15,38 @@ if (fs.existsSync(distDir)) {
 fs.mkdirSync(distDir);
 
 // 构建 TypeScript 文件，但保持导入为外部
-await esbuild.build({
-  entryPoints: [path.join(rootDir, 'index.tsx')],
-  bundle: true,
-  format: 'esm',
-  outfile: path.join(distDir, 'index.js'),
-  external: [
-    'react',
-    'react-dom',
-    'react-dom/client',
-    'react/jsx-runtime',
-    'react-router-dom',
-    'react-markdown',
-    'remark-gfm',
-    'rehype-highlight',
-    'lucide-react'
-  ],
-  jsx: 'automatic',
-  loader: {
-    '.tsx': 'tsx',
-    '.ts': 'ts'
-  },
-  minify: true,
-  sourcemap: false
-});
+console.log('📦 开始构建 TypeScript...');
+try {
+  await esbuild.build({
+    entryPoints: [path.join(rootDir, 'index.tsx')],
+    bundle: true,
+    format: 'esm',
+    outfile: path.join(distDir, 'index.js'),
+    external: [
+      'react',
+      'react-dom',
+      'react-dom/client',
+      'react/jsx-runtime',
+      'react-router-dom',
+      'react-markdown',
+      'remark-gfm',
+      'rehype-highlight',
+      'lucide-react'
+    ],
+    jsx: 'automatic',
+    loader: {
+      '.tsx': 'tsx',
+      '.ts': 'ts'
+    },
+    minify: true,
+    sourcemap: false,
+    logLevel: 'info'
+  });
+  console.log('✓ TypeScript 构建成功');
+} catch (error) {
+  console.error('✗ 构建失败:', error);
+  process.exit(1);
+}
 
 // 复制 index.html（已经指向 index.js）
 fs.copyFileSync(

@@ -31,6 +31,19 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: List dist contents
+        run: |
+          echo "Contents of dist directory:"
+          ls -la dist/
+          echo ""
+          echo "Checking if index.js exists:"
+          if [ -f dist/index.js ]; then
+            echo "✓ index.js found"
+            ls -lh dist/index.js
+          else
+            echo "✗ index.js NOT found"
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

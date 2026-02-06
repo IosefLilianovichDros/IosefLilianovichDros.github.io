@@ -37,11 +37,31 @@ const Portfolio: React.FC = () => {
     try {
       const tencentCodes = MY_PORTFOLIO.map(h => convertSymbol(h.symbol)).join(',');
       const targetUrl = `https://qt.gtimg.cn/q=${tencentCodes}`;
-      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
-      
-      const response = await fetch(proxyUrl);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      
+
+      // 尝试多个 CORS 代理
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
+      ];
+
+      let response: Response | null = null;
+      let lastError: Error | null = null;
+
+      for (const proxyUrl of proxies) {
+        try {
+          response = await fetch(proxyUrl);
+          if (response.ok) break;
+        } catch (err) {
+          lastError = err as Error;
+          continue;
+        }
+      }
+
+      if (!response || !response.ok) {
+        throw lastError || new Error('所有代理均失败');
+      }
+
       const text = await response.text();
       const lines = text.split(';').filter(l => l.trim().length > 0);
       const updatedPrices: Record<string, LivePriceData> = {};
@@ -73,7 +93,8 @@ const Portfolio: React.FC = () => {
         setTimeout(() => setShowFeedback(false), 2000);
       }
     } catch (err) {
-      setError('行情暂时离线');
+      console.warn('实时行情获取失败:', err);
+      setError('实时行情暂时不可用');
     } finally {
       setTimeout(() => setLoading(false), 500);
     }
@@ -153,21 +174,21 @@ const Portfolio: React.FC = () => {
                 <div className="flex justify-between md:block md:w-32 md:text-right">
                   <span className="md:hidden text-[9px] font-mono text-zinc-300 uppercase">Price</span>
                   <span className="font-mono text-[13px] md:text-sm tracking-tighter text-zinc-700">
-                    {priceData ? (
+                    {priceData && priceData.price > 0 ? (
                       <><span className="text-[10px] text-zinc-400 mr-1">{currency.symbol}</span>{priceData.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</>
-                    ) : '---'}
+                    ) : <span className="text-zinc-300">---</span>}
                   </span>
                 </div>
 
                 <div className="flex justify-between md:block md:w-32 md:text-right mt-2 md:mt-0">
                   <span className="md:hidden text-[9px] font-mono text-zinc-300 uppercase">Change</span>
                   <span className={`font-mono text-[13px] md:text-sm flex items-center md:justify-end ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                    {priceData ? (
+                    {priceData && priceData.price > 0 ? (
                       <>
                         {isPositive ? '+' : ''}{priceData.changePercent.toFixed(2)}%
                         {isPositive ? <TrendingUp size={12} className="ml-1" /> : <TrendingDown size={12} className="ml-1" />}
                       </>
-                    ) : '---'}
+                    ) : <span className="text-zinc-300">---</span>}
                   </span>
                 </div>
               </div>

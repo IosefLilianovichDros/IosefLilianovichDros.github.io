@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build.js",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -14,7 +14,8 @@
     "@vitejs/plugin-react": "^4.2.0",
     "typescript": "^5.3.0",
     "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0"
+    "@types/react-dom": "^18.2.0",
+    "esbuild": "^0.19.0"
   },
   "dependencies": {
     "react": "^18.2.0",

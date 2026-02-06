@@ -40,39 +40,11 @@ await esbuild.build({
   sourcemap: false
 });
 
-// 复制 index.html 并修改 script 引用
-let indexHtml = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
-
-// 替换所有可能的 index.tsx 引用
-indexHtml = indexHtml.replace(/src="\.\/index\.tsx"/g, 'src="./index.js"');
-indexHtml = indexHtml.replace(/src="\/index\.tsx"/g, 'src="/index.js"');
-
-// 清理 importmap 中不需要的条目（构建工具相关）
-indexHtml = indexHtml.replace(
-  /"vite":\s*"[^"]+",?\s*\n?/g,
-  ''
-).replace(
-  /"@vitejs\/plugin-react":\s*"[^"]+",?\s*\n?/g,
-  ''
-).replace(
-  /"fs":\s*"[^"]+",?\s*\n?/g,
-  ''
-).replace(
-  /"path":\s*"[^"]+",?\s*\n?/g,
-  ''
-).replace(
-  /"react-dom\/":\s*"[^"]+",?\s*\n?/g,
-  ''
-).replace(
-  /"react\/":\s*"[^"]+",?\s*\n?/g,
-  ''
+// 复制 index.html（已经指向 index.js）
+fs.copyFileSync(
+  path.join(rootDir, 'index.html'),
+  path.join(distDir, 'index.html')
 );
-
-// 清理多余的逗号和空行
-indexHtml = indexHtml.replace(/,(\s*)\n(\s*)}/g, '\n$2}');
-indexHtml = indexHtml.replace(/,(\s*),/g, ',');
-
-fs.writeFileSync(path.join(distDir, 'index.html'), indexHtml);
 
 // 复制 public 目录
 const publicDir = path.join(rootDir, 'public');

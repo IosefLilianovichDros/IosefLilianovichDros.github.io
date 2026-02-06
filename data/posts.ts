@@ -5,5 +5,6 @@
 export const POST_IDS: string[] = [
   'react-18-guide',
   'tailwind-tips',
-  'welcome-post'
+  'welcome-post',
+  'knownothing'
 ];

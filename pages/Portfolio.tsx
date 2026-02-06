@@ -38,11 +38,16 @@ const Portfolio: React.FC = () => {
       const tencentCodes = MY_PORTFOLIO.map(h => convertSymbol(h.symbol)).join(',');
       const targetUrl = `https://qt.gtimg.cn/q=${tencentCodes}`;
 
-      // 尝试多个 CORS 代理
+      // 按可靠性排序的 CORS 代理列表
       const proxies = [
+        // 方案1: AllOrigins (最稳定，推荐)
         `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
+        // 方案2: ThingProxy (备用)
+        `https://thingproxy.freeboard.io/fetch/${targetUrl}`,
+        // 方案3: CORS.SH (新的代理服务)
+        `https://cors.sh/${targetUrl}`,
+        // 方案4: Cloudflare Workers 公共代理
+        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`
       ];
 
       let response: Response | null = null;
@@ -50,10 +55,24 @@ const Portfolio: React.FC = () => {
 
       for (const proxyUrl of proxies) {
         try {
-          response = await fetch(proxyUrl);
-          if (response.ok) break;
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+
+          response = await fetch(proxyUrl, {
+            signal: controller.signal,
+            headers: {
+              'Accept': 'text/plain, */*'
+            }
+          });
+          clearTimeout(timeoutId);
+
+          if (response.ok) {
+            console.log('✓ 使用代理:', proxyUrl.split('/')[2]);
+            break;
+          }
         } catch (err) {
           lastError = err as Error;
+          console.warn('代理失败:', proxyUrl.split('/')[2], err);
           continue;
         }
       }

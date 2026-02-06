@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { POST_IDS } from '../data/posts.ts';
 
-const DOMAIN = 'https://IosefLilianovichDros.github.io'; // 请替换为实际域名
+const DOMAIN = 'https://yourusername.github.io'; // 请替换为实际域名
 
 const generateSitemap = () => {
   const lastMod = new Date().toISOString().split('T')[0];

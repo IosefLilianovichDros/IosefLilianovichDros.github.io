@@ -40,25 +40,37 @@ const Portfolio: React.FC = () => {
 
       // 按可靠性排序的 CORS 代理列表
       const proxies = [
-        // 方案1: AllOrigins (最稳定，推荐)
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-        // 方案2: ThingProxy (备用)
-        `https://thingproxy.freeboard.io/fetch/${targetUrl}`,
-        // 方案3: CORS.SH (新的代理服务)
-        `https://cors.sh/${targetUrl}`,
-        // 方案4: Cloudflare Workers 公共代理
-        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`
+        {
+          name: 'Cloudflare Worker (自建)',
+          url: `https://stock-proxy.keanchen1203.workers.dev?url=${encodeURIComponent(targetUrl)}`
+        },
+        {
+          name: 'AllOrigins',
+          url: `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`
+        },
+        {
+          name: 'ThingProxy',
+          url: `https://thingproxy.freeboard.io/fetch/${targetUrl}`
+        },
+        {
+          name: 'CORS.SH',
+          url: `https://cors.sh/${targetUrl}`
+        }
       ];
 
       let response: Response | null = null;
       let lastError: Error | null = null;
 
-      for (const proxyUrl of proxies) {
-        try {
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+      console.log('🔄 开始获取股票数据...');
 
-          response = await fetch(proxyUrl, {
+      for (const proxy of proxies) {
+        try {
+          console.log(`⏳ 尝试代理: ${proxy.name}`);
+
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 8000); // 8秒超时
+
+          response = await fetch(proxy.url, {
             signal: controller.signal,
             headers: {
               'Accept': 'text/plain, */*'
@@ -67,17 +79,22 @@ const Portfolio: React.FC = () => {
           clearTimeout(timeoutId);
 
           if (response.ok) {
-            console.log('✓ 使用代理:', proxyUrl.split('/')[2]);
+            console.log(`✅ 成功使用代理: ${proxy.name}`);
             break;
+          } else {
+            console.warn(`❌ ${proxy.name} 返回状态: ${response.status}`);
+            response = null;
           }
         } catch (err) {
           lastError = err as Error;
-          console.warn('代理失败:', proxyUrl.split('/')[2], err);
+          const errorMsg = err instanceof Error ? err.message : String(err);
+          console.error(`❌ ${proxy.name} 失败:`, errorMsg);
           continue;
         }
       }
 
       if (!response || !response.ok) {
+        console.error('❌ 所有代理均失败');
         throw lastError || new Error('所有代理均失败');
       }
 

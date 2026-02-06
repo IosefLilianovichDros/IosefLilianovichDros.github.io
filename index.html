@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minimal Log</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <style>
+      :root { --bg-color: #ffffff; --text-color: #111111; }
+      body {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        letter-spacing: -0.011em;
+      }
+      .font-serif { font-family: 'Lora', serif; }
+      .animate-page { animation: pageEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      @keyframes pageEnter {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      pre { background-color: #f9f9fb !important; border: 1px solid rgba(0,0,0,0.04) !important; border-radius: 6px !important; padding: 1.25rem !important; }
+      code.hljs { background-color: transparent !important; color: #24292e !important; font-family: 'JetBrains Mono', monospace !important; font-size: 0.875rem !important; }
+      ::-webkit-scrollbar { width: 0px; }
+    </style>
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?deps=react@18.2.0,react-dom@18.2.0",
+    "react-markdown": "https://esm.sh/react-markdown@9.0.1?deps=react@18.2.0",
+    "remark-gfm": "https://esm.sh/remark-gfm@4.0.0",
+    "rehype-highlight": "https://esm.sh/rehype-highlight@7.0.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.363.0?deps=react@18.2.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+# Site settings
+title: Keyon Blog
+SEOTitle: 柯安的博客 | Keyon Blog
+header-img: img/post-bg-desk.jpg
+email: keanchen1203@gmail.com
+description: "这里是Keyon的个人博客，与你一起发现更大的世界。"
+keyword: "陈柯安，Keyon"
+url: "http://keanchen.github.io"          # your host, for absolute URL
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+github_repo: "https://github.com/KeanChen/KeanChen.github.io.git" # you code repository
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "挑剔的偏执狂，流浪的旅行者，神经质的爆裂鼓手，永无止境的迷宫设计师"
+sidebar-avatar: /img/about-Keyon-gentle.JPG      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# SNS settings
+RSS: true
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate]
+
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+
+# 评论系统
+# Giscus 评论系统
+giscus:
+  enable: false
+  repo: KeanChen/KeanChen.github.io
+  repo-id: # 需要在 https://giscus.app 获取
+  category: General
+  category-id: # 需要在 https://giscus.app 获取
+  mapping: pathname
+  strict: 0
+  reactions-enabled: 1
+  emit-metadata: 0
+  input-position: bottom
+  theme: preferred_color_scheme
+  lang: zh-CN
+  loading: lazy
+
+
+# 统计
+
+# Analytics settings
+# Baidu Analytics
+#ba_track_id:
+
+# Google Analytics
+ga_track_id: 'UA-116690325-1'            # Format: UA-xxxxxx-xx
+ga_domain: auto               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+
+
+
+
+
+# Featured Tags
+featured-tags: true                     # 是否使用首页标签
+featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true

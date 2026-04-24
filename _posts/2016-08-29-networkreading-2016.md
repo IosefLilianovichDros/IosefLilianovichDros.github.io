@@ -25,6 +25,7 @@ tags:
 | [两晋十六国](https://www.bilibili.com/video/BV1N7411M7wA/) | 安州牧 | ✅ |
 | [风云南北朝](https://www.bilibili.com/video/BV1w3411v7jd/) | 安州牧 |  |
 | [东晋与十六国](https://www.bilibili.com/video/BV1234y197PN/) | 稚嫩魔法师 |  |
+| [王莽的一生](https://www.bilibili.com/video/BV1Ao4y1t7CD/) | 唠点历史 |  |
 | [【激荡四十年】系列](https://www.bilibili.com/video/BV1AK4y147uB/) | 大象放映室 |  |
 | [汉武时代漫谈](https://www.bilibili.com/video/BV12K4y1e7ZU/) | 草说木言 | ✅ |
 | [【孙子兵法】十三篇速览](https://www.bilibili.com/video/BV1C5411T7FD/) | 草说木言 | ✅ |
@@ -35,6 +36,8 @@ tags:
 | [详细解说《绝命毒师》](https://www.bilibili.com/video/BV1b44y1g7UD/) | 阿斗归来了 | ✅ |
 | [一口气看完《风骚律师》](https://www.bilibili.com/video/BV1Ue4y1o7WU/) | 绝命墨菲 |  |
 | [计算机科学速成课](https://www.bilibili.com/video/BV1EW411u7th/) | CrashCourse字幕组 | ✅ |
+| [线性代数的本质](https://www.bilibili.com/video/BV1ys411472E/) | 3Blue1Brown |  |
+| [微积分的本质](https://www.bilibili.com/video/BV1qW411N7FU/) | 3Blue1Brown |  |
 | [Java](https://www.bilibili.com/video/BV1fh411y7R8/) | 韩顺平 |  |
 | [装机教程](https://www.bilibili.com/video/BV1BG4y137mG/) | 硬件茶谈 |  |
 | [高中数学](https://www.bilibili.com/video/BV147411K7xu/) | 一数 |  |
@@ -42,7 +45,7 @@ tags:
 | [上古卷轴5:天际](https://www.bilibili.com/video/BV1N4411n7yc/) | 玉强 |  |
 | [塞尔达传说：旷野之息](https://www.bilibili.com/video/BV12W411W7Af/) | 王薯条_ | ✅ |
 | [博德之门3](https://www.bilibili.com/video/BV1cN411h7z7/) | 跛腿骑士 |  |
-| [神界原罪2](https://www.bilibili.com/video/BV14E411N7Dq/) | 跛腿骑士 |  |
+| [神界原罪2](https://www.bilibili.com/video/BV14E411N7Dq/) | 跛腿骑士 | ✅ |
 | [黑暗之魂3](https://www.bilibili.com/video/BV1Ct411p79i/) | 大湿的学徒 | ✅ |
 | [黑暗之魂1](https://www.bilibili.com/video/BV1KW411w7LX/) | 大湿的学徒 | ✅ |
 | [战神4](https://www.bilibili.com/video/BV1Rb4y1e79T/) | 大湿的学徒 | ✅ |

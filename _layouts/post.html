@@ -237,9 +237,13 @@ layout: default
 <script>
 window.MathJax = {
   tex: {
-    inlineMath: [['$', '$']],
-    displayMath: [['$$', '$$']],
-    processEscapes: true
+    processEscapes: true,
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ]
   },
   options: {
     skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']

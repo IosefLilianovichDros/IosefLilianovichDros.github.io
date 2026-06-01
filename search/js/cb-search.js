@@ -1,21 +1,21 @@
 $(document).ready(function () {
     var time1 = 0;
     var show = false;
-    var searchData = []; // 存储所有文章数据
-    var searchResults = []; // 存储搜索结果
-    var currentQuery = ""; // 当前搜索关键词
+    var searchData = [];
+    var searchResults = [];
+    var currentQuery = "";
 
     // 键盘快捷键监听
     $(document).keyup(function (e) {
         var time2 = new Date().getTime();
-        if (e.keyCode == 17) { // Ctrl键
+        if (e.keyCode == 17) {
             var gap = time2 - time1;
             time1 = time2;
             if (gap < 500) {
                 toggleSearch();
                 time1 = 0;
             }
-        } else if (e.keyCode == 27) { // ESC键
+        } else if (e.keyCode == 27) {
             hideSearch();
         }
     });
@@ -23,19 +23,18 @@ $(document).ready(function () {
     // 搜索框键盘事件
     $("#cb-search-content").keyup(function (e) {
         var time2 = new Date().getTime();
-        if (e.keyCode == 17) { // Ctrl键
+        if (e.keyCode == 17) {
             var gap = time2 - time1;
             time1 = time2;
             if (gap < 500) {
                 toggleSearch();
                 time1 = 0;
             }
-        } else if (e.keyCode == 13) { // Enter键
+        } else if (e.keyCode == 13) {
             performSearch();
-        } else if (e.keyCode == 27) { // ESC键
+        } else if (e.keyCode == 27) {
             hideSearch();
         } else {
-            // 实时搜索（延迟执行）
             clearTimeout(window.searchTimeout);
             window.searchTimeout = setTimeout(function() {
                 var query = $("#cb-search-content").val().trim();
@@ -92,44 +91,46 @@ $(document).ready(function () {
             return;
         }
 
+        if (searchData.length === 0) {
+            var resultsContainer = '<div class="search-results-container">' +
+                '<div class="search-no-results">搜索数据加载中，请稍候...</div>' +
+                '</div>';
+            $('.cb-search-tool').append(resultsContainer);
+            return;
+        }
+
         currentQuery = query;
         searchResults = [];
 
-        // 搜索算法
         searchData.forEach(function(post) {
             var score = 0;
             var titleMatch = false;
             var contentMatch = false;
             var tagMatch = false;
 
-            // 标题匹配（权重最高）
-            if (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+            if (post.title && post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
                 score += 10;
                 titleMatch = true;
             }
 
-            // 副标题匹配
             if (post.subtitle && post.subtitle.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
                 score += 8;
             }
 
-            // 标签匹配
             if (post.tags) {
                 post.tags.forEach(function(tag) {
-                    if (tag.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+                    if (tag && tag.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
                         score += 5;
                         tagMatch = true;
                     }
                 });
             }
 
-            // 内容匹配
-            if (post.content.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+            if (post.content && post.content.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
                 score += 3;
                 contentMatch = true;
             }
 
-            // 如果有匹配，添加到结果中
             if (score > 0) {
                 searchResults.push({
                     post: post,
@@ -141,7 +142,6 @@ $(document).ready(function () {
             }
         });
 
-        // 按分数排序
         searchResults.sort(function(a, b) {
             return b.score - a.score;
         });
@@ -158,7 +158,7 @@ $(document).ready(function () {
         } else {
             resultsHtml = '<div class="search-results-header">找到 ' + searchResults.length + ' 篇相关文章</div>';
 
-            searchResults.forEach(function(result) { // 显示所有搜索结果
+            searchResults.forEach(function(result) {
                 var post = result.post;
                 var excerpt = getHighlightedExcerpt(post.content, currentQuery);
                 var highlightedTitle = highlightText(post.title, currentQuery);
@@ -185,17 +185,16 @@ $(document).ready(function () {
             });
         }
 
-        // 移除旧的搜索结果
         $('.search-results-container').remove();
 
-        // 添加新的搜索结果
         var resultsContainer = '<div class="search-results-container">' + resultsHtml + '</div>';
         $('.cb-search-tool').append(resultsContainer);
 
-        // 绑定点击事件
         $('.search-result-item').click(function() {
             var url = $(this).data('url');
-            window.location.href = url;
+            if (url) {
+                window.location.href = url;
+            }
         });
     }
 
@@ -206,7 +205,7 @@ $(document).ready(function () {
 
     // 高亮文本
     function highlightText(text, query) {
-        if (!text || !query) return text;
+        if (!text || !query) return text || '';
 
         var regex = new RegExp('(' + escapeRegExp(query) + ')', 'gi');
         return text.replace(regex, '<mark class="search-highlight">$1</mark>');
@@ -217,7 +216,7 @@ $(document).ready(function () {
         maxLength = maxLength || 150;
 
         if (!content || !query) {
-            return content.substring(0, maxLength) + (content.length > maxLength ? '...' : '');
+            return content ? (content.substring(0, maxLength) + (content.length > maxLength ? '...' : '')) : '';
         }
 
         var lowerContent = content.toLowerCase();
@@ -225,21 +224,17 @@ $(document).ready(function () {
         var index = lowerContent.indexOf(lowerQuery);
 
         if (index === -1) {
-            // 如果没有找到关键词，返回开头部分
             return content.substring(0, maxLength) + (content.length > maxLength ? '...' : '');
         }
 
-        // 计算摘要的开始和结束位置
         var start = Math.max(0, index - 30);
         var end = Math.min(content.length, start + maxLength);
 
         var excerpt = content.substring(start, end);
 
-        // 添加省略号
         if (start > 0) excerpt = '...' + excerpt;
         if (end < content.length) excerpt = excerpt + '...';
 
-        // 高亮关键词
         return highlightText(excerpt, query);
     }
 
@@ -250,11 +245,24 @@ $(document).ready(function () {
 
     // 加载搜索数据
     $.getJSON("/search/cb-search.json").done(function (data) {
-        if (data.code == 0) {
+        if (data && data.code == 0 && Array.isArray(data.data)) {
             searchData = data.data;
             console.log("搜索数据加载成功，共 " + searchData.length + " 篇文章");
+        } else {
+            console.error("搜索数据格式错误: 期望 { code: 0, data: [...] }");
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        console.log("搜索数据加载失败: " + textStatus);
+        console.error("搜索数据加载失败: " + textStatus + " - " + errorThrown);
+        // 显示错误提示，让用户知道搜索不可用
+        if (textStatus !== "abort") {
+            setTimeout(function() {
+                if (searchData.length === 0) {
+                    var errorHtml = '<div class="search-results-container">' +
+                        '<div class="search-no-results">搜索功能暂时不可用，请稍后再试</div>' +
+                        '</div>';
+                    $('.cb-search-tool').append(errorHtml);
+                }
+            }, 5000);
+        }
     });
 });

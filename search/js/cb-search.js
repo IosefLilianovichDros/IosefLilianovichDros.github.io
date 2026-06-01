@@ -4,6 +4,8 @@ $(document).ready(function () {
     var searchData = [];
     var searchResults = [];
     var currentQuery = "";
+    var dataLoaded = false;
+    var dataError = false;
 
     // 键盘快捷键监听
     $(document).keyup(function (e) {
@@ -64,6 +66,7 @@ $(document).ready(function () {
         $("#cb-search-content").val("");
         $("#cb-search-content").focus();
         clearSearchResults();
+        showLoadingState();
     }
 
     // 隐藏搜索界面
@@ -83,19 +86,40 @@ $(document).ready(function () {
         }
     }
 
+    // 显示加载状态
+    function showLoadingState() {
+        if (dataError) {
+            showErrorMessage();
+        } else if (!dataLoaded) {
+            appendMessage('search-data-loading', '搜索数据加载中，请稍候...');
+        }
+    }
+
+    // 显示错误状态
+    function showErrorMessage() {
+        appendMessage('search-data-error', '搜索功能暂时不可用，请稍后再试');
+    }
+
+    // 追加消息（先清理旧的）
+    function appendMessage(className, text) {
+        clearSearchResults();
+        var html = '<div class="search-results-container">' +
+            '<div class="search-no-results ' + className + '">' + text + '</div>' +
+            '</div>';
+        $('.cb-search-tool').append(html);
+    }
+
     // 执行搜索
     function performSearch(query) {
         query = query || $("#cb-search-content").val().trim();
         if (query.length === 0) {
             clearSearchResults();
+            showLoadingState();
             return;
         }
 
-        if (searchData.length === 0) {
-            var resultsContainer = '<div class="search-results-container">' +
-                '<div class="search-no-results">搜索数据加载中，请稍候...</div>' +
-                '</div>';
-            $('.cb-search-tool').append(resultsContainer);
+        if (!dataLoaded) {
+            showLoadingState();
             return;
         }
 
@@ -185,7 +209,7 @@ $(document).ready(function () {
             });
         }
 
-        $('.search-results-container').remove();
+        clearSearchResults();
 
         var resultsContainer = '<div class="search-results-container">' + resultsHtml + '</div>';
         $('.cb-search-tool').append(resultsContainer);
@@ -247,22 +271,18 @@ $(document).ready(function () {
     $.getJSON("/search/cb-search.json").done(function (data) {
         if (data && data.code == 0 && Array.isArray(data.data)) {
             searchData = data.data;
+            dataLoaded = true;
             console.log("搜索数据加载成功，共 " + searchData.length + " 篇文章");
         } else {
             console.error("搜索数据格式错误: 期望 { code: 0, data: [...] }");
+            dataError = true;
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.error("搜索数据加载失败: " + textStatus + " - " + errorThrown);
-        // 显示错误提示，让用户知道搜索不可用
-        if (textStatus !== "abort") {
-            setTimeout(function() {
-                if (searchData.length === 0) {
-                    var errorHtml = '<div class="search-results-container">' +
-                        '<div class="search-no-results">搜索功能暂时不可用，请稍后再试</div>' +
-                        '</div>';
-                    $('.cb-search-tool').append(errorHtml);
-                }
-            }, 5000);
+        dataError = true;
+        // 如果搜索界面已经打开，立即显示错误
+        if (show) {
+            showErrorMessage();
         }
     });
 });

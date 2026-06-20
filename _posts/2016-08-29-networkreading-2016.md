@@ -49,7 +49,7 @@ tags:
 | [黑暗之魂3](https://www.bilibili.com/video/BV1Ct411p79i/) | 大湿的学徒 | ✅ |
 | [黑暗之魂1](https://www.bilibili.com/video/BV1KW411w7LX/) | 大湿的学徒 | ✅ |
 | [战神4](https://www.bilibili.com/video/BV1Rb4y1e79T/) | 大湿的学徒 | ✅ |
-| [生化危机4](https://www.bilibili.com/video/BV1eF411Z7aG/) | 大湿的学徒 |  |
+| [生化危机4](https://www.bilibili.com/video/BV1eF411Z7aG/) | 大湿的学徒 | ✅ |
 | [血源诅咒](https://www.bilibili.com/video/BV1d7411P7oC/) | 随义のfreely | ✅ |
 | [只狼](https://www.bilibili.com/video/BV1Db411s7Ri/) | 紫雨carol | ✅ |
 | [密特罗德：生存恐惧](https://www.bilibili.com/video/BV19q4y197jG/) | 艾莉希安 | ✅ |

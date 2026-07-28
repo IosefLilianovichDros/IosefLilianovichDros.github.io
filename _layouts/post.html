@@ -34,10 +34,6 @@ layout: default
         border: none !important;
     }
 
-    #giscus-container {
-        margin-bottom: 0 !important;
-    }
-
     .sidebar-container:last-child {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
@@ -76,7 +72,7 @@ layout: default
                     </div>
                     <h1>{{ page.title }}</h1>
                     {% comment %}
-                        always create a h2 for keeping the margin , Hux
+                        always create a h2 for keeping the margin , 
                     {% endcomment %}
                     {% comment %} if page.subtitle {% endcomment %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
@@ -121,30 +117,6 @@ layout: default
                     </li>
                     {% endif %}
                 </ul>
-
-                <!-- Giscus 评论 start -->
-                {% if site.giscus.enable %}
-                <hr>
-                <div id="giscus-container">
-                    <script src="https://giscus.app/client.js"
-                        data-repo="{{ site.giscus.repo }}"
-                        data-repo-id="{{ site.giscus.repo-id }}"
-                        data-category="{{ site.giscus.category }}"
-                        data-category-id="{{ site.giscus.category-id }}"
-                        data-mapping="{{ site.giscus.mapping }}"
-                        data-strict="{{ site.giscus.strict }}"
-                        data-reactions-enabled="{{ site.giscus.reactions-enabled }}"
-                        data-emit-metadata="{{ site.giscus.emit-metadata }}"
-                        data-input-position="{{ site.giscus.input-position }}"
-                        data-theme="{{ site.giscus.theme }}"
-                        data-lang="{{ site.giscus.lang }}"
-                        data-loading="{{ site.giscus.loading }}"
-                        crossorigin="anonymous"
-                        async>
-                    </script>
-                </div>
-                {% endif %}
-                <!-- Giscus 评论 end -->
 
             </div>
 
@@ -211,7 +183,7 @@ layout: default
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
-    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+    async("{{ '/js/anchor.min.js' | prepend: site.baseurl }}",function(){
         anchors.options = {
           visible: 'always',
           placement: 'right',
@@ -233,7 +205,8 @@ layout: default
 </style>
 {% endif %}
 
-<!-- MathJax support for math formulas -->
+<!-- MathJax support for math formulas (only when the post actually uses math) -->
+{% if page.mathjax or content contains 'math/tex' %}
 <script>
 window.MathJax = {
   tex: {
@@ -249,3 +222,4 @@ window.MathJax = {
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+{% endif %}

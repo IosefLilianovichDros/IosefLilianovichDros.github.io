@@ -1,18 +1,15 @@
 /* ===========================================================
  * sw.js
  * ===========================================================
- * Copyright 2016 @huxpro
+ * Copyright 2016
  * Licensed under Apache 2.0 
  * Register service worker.
  * ========================================================== */
 
-const PRECACHE = 'precache-v1';
+const PRECACHE = 'precache-v2';
 const RUNTIME = 'runtime';
 const HOSTNAME_WHITELIST = [
-  self.location.hostname,
-  "huangxuan.me",
-  "yanshuo.io",
-  "cdnjs.cloudflare.com"
+  self.location.hostname
 ]
 
 
@@ -56,7 +53,6 @@ const endWithExtension = (req) => Boolean(new URL(req.url).pathname.match(/\.\w+
 //    .ext?blah -> !(sw 302 -> .ext/?blah -> gh 404) -> .ext?blah 
 // If It's a navigation req and it's url.pathname isn't end with '/' or '.ext'
 // it should be a dir/repo request and need to be fixed (a.k.a be redirected)
-// Tracking https://twitter.com/Huxpro/status/798816417097224193
 const shouldRedirect = (req) => (isNavigationReq(req) && new URL(req.url).pathname.substr(-1) !== "/" && !endWithExtension(req))
 
 // The Util Function to get redirect URL
@@ -94,8 +90,15 @@ self.addEventListener('install', e => {
  *  waitUntil(): activating ====> activated
  */
 self.addEventListener('activate',  event => {
-  console.log('service worker activated.')
-  event.waitUntil(self.clients.claim());
+  // Remove outdated precache/runtime versions to avoid serving stale assets.
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.filter(key => key !== PRECACHE && key !== RUNTIME)
+            .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
+  );
 });
 
 
@@ -106,12 +109,7 @@ self.addEventListener('activate',  event => {
  *  void respondWith(Promise<Response> r);
  */
 self.addEventListener('fetch', event => {
-  // logs for debugging
-  console.log(`fetch ${event.request.url}`)
-  //console.log(` - type: ${event.request.type}; destination: ${event.request.destination}`)
-  //console.log(` - mode: ${event.request.mode}, accept: ${event.request.headers.get('accept')}`)
-
-  // Skip some of cross-origin requests, like those for Google Analytics.
+  // Skip cross-origin requests (e.g. Google Analytics); only handle whitelisted hosts.
   if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
     
     // Redirect in SW manually fixed github pages 404s on repo?blah 

@@ -1,1 +1,10 @@
 .DS_Store
+
+# Jekyll / build artifacts
+_site/
+.jekyll-cache/
+Gemfile.lock
+
+# Local tooling / agent memory (never commit)
+.workbuddy/
+

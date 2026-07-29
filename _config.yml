@@ -50,10 +50,10 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
-  # math_engine: mathjax -> kramdown 把 $$...$$ / \(...\) 包成
-  # <script type="math/tex">（MathJax 2 格式）。MathJax 3 默认不读该标签，
-  # 必须在 post.html 里加 renderActions.find 桥接脚本（见 kramdown#626）才能渲染。
-  math_engine: mathjax
+  # math_engine: nil -> kramdown 原样输出 $$...$$ / \(...\) 裸定界符，
+  # 交给 MathJax 3 自带定界符扫描渲染（不要加 renderActions.find 桥接，
+  # 那会覆盖 MJ3 默认 find，导致裸 $$ 不再被识别。见 kramdown#626）
+  math_engine: nil
 
 
 

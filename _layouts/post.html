@@ -206,18 +206,16 @@ layout: default
 {% endif %}
 
 <!-- MathJax support for math formulas (only when the post actually uses math) -->
-{% if page.mathjax or content contains 'math/tex' %}
+{% if page.mathjax or content contains '$$' or content contains '\(' or content contains 'math/tex' %}
 <script>
 window.MathJax = {
   tex: {
-    processEscapes: true,
-    delimiters: [
-      {left: '$', right: '$', display: false},
-      {left: '\\(', right: '\\)', display: false}
-    ]
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
   },
   options: {
-    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
   }
 };
 </script>

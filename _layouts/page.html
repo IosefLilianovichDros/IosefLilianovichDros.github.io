@@ -101,11 +101,17 @@ layout: default
                         {% if site.sidebar-about-description %}
                             <p>{{site.sidebar-about-description}}</p>
                         {% endif %}
-
-                        {% if site.email %}
-                            <p>✉️ {{site.email}}</p>
-                        {% endif %}
                     </div>
+                </section>
+
+                <!-- Respect: 崇敬的人事物 -->
+                <section class="visible-md visible-lg">
+                    <hr><h5>RESPECT</h5>
+                    <ul class="list-inline">
+                        {% for item in site.respect %}
+                        <li><a href="{{ item.href }}" target="_blank" rel="noopener" title="{{ item.intro }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </section>
 
     		</div>

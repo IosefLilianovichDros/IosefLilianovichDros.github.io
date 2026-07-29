@@ -50,10 +50,10 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
-  # math_engine: nil -> kramdown 原样输出 $$...$$ / \(...\) 裸定界符，
-  # 交给 MathJax 3 用定界符渲染（mathjax 引擎会包成 <script type="math/tex">，
-  # 而 MathJax 3 默认不读该标签，导致公式静默不显示，见 kramdown#626）
-  math_engine: nil
+  # math_engine: mathjax -> kramdown 把 $$...$$ / \(...\) 包成
+  # <script type="math/tex">（MathJax 2 格式）。MathJax 3 默认不读该标签，
+  # 必须在 post.html 里加 renderActions.find 桥接脚本（见 kramdown#626）才能渲染。
+  math_engine: mathjax
 
 
 

@@ -5,8 +5,7 @@ subtitle:   价值投资备忘录（其三） #副标题
 date:       2026-07-24              # 时间
 author:     Keyon                      # 作者
 catalog: true                       # 是否归档
-tags:
-  投资
+tags: [投资]
 ---
 
 ## 胜率与赔率的定义与用法

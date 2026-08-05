@@ -5,8 +5,7 @@ subtitle:   《行为经济学》学习笔记 #副标题
 date:       2018-06-08              # 时间
 author:     Keyon                      # 作者
 catalog: true                       # 是否归档
-tags:
-  行为经济学
+tags: [公开课]
 ---
 
 ## 行为经济学简介

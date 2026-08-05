@@ -5,8 +5,7 @@ subtitle:   当下&价值 #副标题
 date:       2016-08-29              # 时间
 author:     Keyon                      # 作者
 catalog: true                       # 是否归档
-tags:
- 资料
+tags: [生活]
 ---
 
 # 哔哩哔哩

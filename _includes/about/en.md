@@ -1,0 +1,1 @@
+The Dharma is to be transmitted from mind to mind, and each must be awakened to it and clarify it to himself. From ancient times buddha after buddha has passed on the same body of knowledge. And teacher after teacher has secretly passed on the original mind.

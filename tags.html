@@ -1,0 +1,71 @@
+---
+title: Tags
+layout: default
+description: Veni Vidi Vici.
+header-img: "img/tag-bg.jpg"
+---
+
+<!-- Page Header -->
+<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+                    <span class="subheading">{{ page.description }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 标签云 -->
+			<div id='tag_cloud' class="tags">
+				{% for tag in site.tags %}
+				<a href="#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">{{ tag[0] }}</a>
+				{% endfor %}
+			</div>
+
+            <!--<blockquote class="tag-comments">
+                标签命名规范：
+                    <li>行业观察、职位、公司优先使用中文</li>
+                    <li>外国产品、术语优先使用英文</li>
+            </blockquote>-->
+
+            <!-- 标签列表 -->
+			{% for tag in site.tags %}
+			<div class="one-tag-list">
+			  	<span class="listing-seperator" id="{{ tag[0] }}">
+                    <svg class="tag-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" style="margin-right:5px;vertical-align:-2px"><path fill="currentColor" d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+                    <span class="tag-text">{{ tag[0] }}</span>
+                </span>
+				{% for post in tag[1] %}
+				  <!-- <li class="listing-item">
+				  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+				  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="{{ post.url | prepend: site.baseurl }}">
+				        <h2 class="post-title">
+                            {{ post.title }}
+				        </h2>
+				        {% if post.subtitle %}
+				        <h3 class="post-subtitle">
+				            {{ post.subtitle }}
+				        </h3>
+				        {% endif %}
+				    </a>
+				    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+				</div>
+				<hr>
+				{% endfor %}
+			</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>

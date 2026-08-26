@@ -1,0 +1,18 @@
+{
+    "name": "keyon-blog",
+    "title": "Keyon Blog",
+    "author": "Keyon <1002585389@qq.com>",
+    "version": "1.7.0",
+    "homepage": "https://ioseflilianovichdros.github.io",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/IosefLilianovichDros/IosefLilianovichDros.github.io"
+    },
+    "bugs": "https://github.com/IosefLilianovichDros/IosefLilianovichDros.github.io/issues",
+    "scripts": {
+        "build": "bundle exec jekyll build",
+        "serve": "bundle exec jekyll serve --host 0.0.0.0 --port 4000",
+        "preview": "bundle exec jekyll serve --host 0.0.0.0 --port 4000",
+        "clean": "bundle exec jekyll clean"
+    }
+}

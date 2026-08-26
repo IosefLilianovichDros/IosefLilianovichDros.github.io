@@ -1,0 +1,84 @@
+# Site settings
+title: Keyon Blog
+SEOTitle: Keyon的博客 | Keyon Blog
+header-img: img/post-bg-desk.jpg
+description: "这里是Keyon的个人博客，与你一起发现更大的世界。"
+keyword: "Keyon"
+url: "https://ioseflilianovichdros.github.io"          # your host, for absolute URL
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+github_repo: "https://github.com/IosefLilianovichDros/IosefLilianovichDros.github.io.git" # you code repository
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "使智，使勇，使贪，使愚。故智者乐立其功，勇者好行其志，贪者急趋其利，愚者不计其死。"
+sidebar-avatar: /img/about-Keyon-gentle.JPG      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+# 崇敬的人事物（侧边栏友链，标题显示 RESPECT）
+respect:
+  - title: Warren Buffett
+    href: https://www.berkshirehathaway.com/
+    intro: Berkshire Hathaway
+
+
+
+# SNS settings
+RSS: true
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","README.md","Gemfile","Gemfile.lock"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Plugins
+# from PR#40, to support local preview for Jekyll 3.0
+plugins: [jekyll-paginate]
+
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+  # math_engine: nil -> kramdown 原样输出 $$...$$ / \(...\) 裸定界符，
+  # 交给 MathJax 3 自带定界符扫描渲染（不要加 renderActions.find 桥接，
+  # 那会覆盖 MJ3 默认 find，导致裸 $$ 不再被识别。见 kramdown#626）
+  math_engine: nil
+
+
+
+# 统计
+
+# Analytics settings
+# Baidu Analytics
+#ba_track_id:
+
+# Google Analytics 4 (GA4)
+# 将下方占位符替换为你的 GA4 衡量 ID（格式 G-XXXXXXX）。
+# 仍保留占位符 'G-XXXXXXXXXX' 或设为空字符串时，不会发送任何数据。
+ga_track_id: 'G-CN32J6VQTK'            # Format: G-XXXXXXX (GA4 Measurement ID)
+
+
+
+
+
+
+# Featured Tags
+featured-tags: true                     # 是否使用首页标签
+featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true

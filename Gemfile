@@ -6,4 +6,5 @@ gem 'github-pages', group: :jekyll_plugins
 # Plugins
 group :jekyll_plugins do
   gem 'jekyll-paginate'
+  gem 'jekyll-sitemap'
 end

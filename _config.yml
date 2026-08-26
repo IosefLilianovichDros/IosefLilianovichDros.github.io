@@ -1,7 +1,7 @@
 # Site settings
 title: Keyon Blog
 SEOTitle: Keyon的博客 | Keyon Blog
-header-img: img/post-bg-desk.jpg
+header-img: img/post-bg-desk.webp
 description: "这里是Keyon的个人博客，与你一起发现更大的世界。"
 keyword: "Keyon"
 url: "https://ioseflilianovichdros.github.io"          # your host, for absolute URL
@@ -37,7 +37,7 @@ anchorjs: true                          # if you want to customize anchor. check
 
 # Plugins
 # from PR#40, to support local preview for Jekyll 3.0
-plugins: [jekyll-paginate]
+plugins: [jekyll-paginate, jekyll-sitemap]
 
 
 

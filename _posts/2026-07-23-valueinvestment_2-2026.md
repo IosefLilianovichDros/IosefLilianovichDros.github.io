@@ -26,7 +26,7 @@ tags: [投资]
 
 1000 美元的自有本金，三个月净赚 100 美元，折算成年化收益率达到了 40%。全程没有赌股价上涨，没有依赖牛市行情，利润来自确定的赎回兑付和低成本杠杆之间的差值，本金安全有明确的合同条款托底。
 
-![GRPO vs PPO](/img/valueinvestment2.png)
+![GRPO vs PPO](/img/valueinvestment2.webp)
 
 ## 格雷厄姆对投资的重新定义
 

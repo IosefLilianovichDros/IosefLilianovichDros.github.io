@@ -33,6 +33,11 @@ $(document).ready(function() {
     $("table").addClass("table");
 });
 
+// lazy load images inside posts
+$(document).ready(function() {
+    $("article img").attr("loading", "lazy").attr("decoding", "async");
+});
+
 // responsive embed videos
 $(document).ready(function() {
     $('iframe[src*="youtube.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>');

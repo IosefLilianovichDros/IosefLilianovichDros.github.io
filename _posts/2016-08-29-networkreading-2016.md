@@ -1,7 +1,7 @@
 ---
 layout:     post                    # 使用的布局（不需要改）
 title:      网络参考资料汇总              # 标题 
-subtitle:   当下&价值 #副标题
+subtitle:   学习一切 #副标题
 date:       2016-08-29              # 时间
 author:     Keyon                      # 作者
 catalog: true                       # 是否归档
@@ -23,6 +23,7 @@ tags: [生活]
 | 走向共和 | 木鱼水心 | ✅ |
 | [两晋十六国](https://www.bilibili.com/video/BV1N7411M7wA/) | 安州牧 | ✅ |
 | [风云南北朝](https://www.bilibili.com/video/BV1w3411v7jd/) | 安州牧 | ✅ |
+| 安史之乱 | 安州牧 | ✅ |
 | [东晋与十六国](https://www.bilibili.com/video/BV1234y197PN/) | 稚嫩魔法师 |  |
 | [王莽的一生](https://www.bilibili.com/video/BV1Ao4y1t7CD/) | 唠点历史 |  |
 | [【激荡四十年】系列](https://www.bilibili.com/video/BV1AK4y147uB/) | 大象放映室 |  |
